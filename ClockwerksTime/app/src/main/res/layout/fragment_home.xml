@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/bananaFragmentBG">
+
+       <GridLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:columnCount="1"
+           android:rowCount="4">
+           <TextView
+               android:id="@+id/text_home"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textAlignment="center"
+               android:textColor="@color/white"
+               android:textSize="20sp"
+               android:text="Test text"
+               android:layout_column="0"
+               android:layout_row="0"
+               android:layout_marginTop="20sp"
+               android:layout_marginRight="50sp"
+               android:layout_marginLeft="50sp"
+               app:layout_constraintBottom_toTopOf="@+id/imageView_BG"
+               app:layout_constraintTop_toTopOf="parent"
+               tools:layout_editor_absoluteX="-30dp" />
+
+           <ImageView
+               android:id="@+id/imageView_BG"
+               android:layout_width="wrap_content"
+               android:layout_height="623dp"
+               android:layout_marginTop="20sp"
+               android:layout_column="0"
+               android:layout_row="2"
+               android:src="@drawable/notloggedin_screen"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent" />
+           <GridLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:columnCount="2"
+               android:rowCount="1"
+               android:layout_column="0"
+               android:layout_row="1">
+
+               <Button
+                   android:id="@+id/button_Home_StartDate"
+                   android:layout_width="120sp"
+                   android:layout_height="wrap_content"
+                   android:text="Start Date"
+                   android:layout_column="0"
+                   android:layout_row="0"
+                   android:visibility="gone"
+                   android:textColor="@color/white"
+                   android:layout_marginTop="8dp"
+                   android:layout_gravity="left"
+                   android:layout_marginLeft="65sp"
+                   android:layout_marginRight="10sp" />
+
+               <Button
+                   android:id="@+id/button_Home_EndDate"
+                   android:layout_width="120sp"
+                   android:layout_height="wrap_content"
+                   android:text="End Date"
+                   android:visibility="gone"
+                   android:textColor="@color/white"
+                   android:layout_column="1"
+                   android:layout_row="0"
+                   android:layout_marginTop="8dp"
+                   android:layout_gravity="right"
+                   android:layout_marginRight="80sp"
+                   android:layout_marginLeft="0sp" />
+
+           </GridLayout>
+           <LinearLayout
+               android:id="@+id/linearLayoutSessionsList"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical"
+               android:padding="16dp"
+               android:layout_column="0"
+               android:layout_row="3"
+               android:visibility="gone"
+               app:layout_constraintTop_toBottomOf="@id/imageView_BG">
+           </LinearLayout>
+       </GridLayout>
+
+</ScrollView>

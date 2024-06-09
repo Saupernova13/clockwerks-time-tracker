@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.ClockwerksTime" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <item name="colorPrimary">@color/banana</item>
+    </style>
+    <style name="SpinnerTextStyle" parent="android:Widget.TextView.SpinnerItem">
+        <item name="android:textColor">@color/bananaBrown</item>
+    </style>
+
+</resources>

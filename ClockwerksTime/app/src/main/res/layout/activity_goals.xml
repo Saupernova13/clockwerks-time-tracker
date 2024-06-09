@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true" android:background="@color/banana">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".Goals">
+        <View
+            android:id="@+id/viewBackground_Goals_BG"
+            android:layout_width="340dp"
+            android:layout_height="350dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_rectangle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.49"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_Goals_Title"
+            app:layout_constraintVertical_bias="0.077" />
+
+        <TextView
+            android:id="@+id/textView_Goals_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Set Daily Goals"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_Goals_MinGoals"
+            android:layout_width="250sp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/bananaBrown"
+            android:textSize="20sp"
+            android:text="Minimum Daily Hours Goal:"
+            android:textAlignment="center"
+            android:layout_margin="15sp"
+            app:layout_constraintEnd_toEndOf="@+id/viewBackground_Goals_BG"
+            app:layout_constraintStart_toStartOf="@+id/viewBackground_Goals_BG"
+            app:layout_constraintTop_toTopOf="@id/viewBackground_Goals_BG" />
+
+        <EditText
+
+            android:id="@+id/editText_Goals_MinGoals"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="15sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/rounded_edittext"
+            android:inputType="numberDecimal"
+            android:textColor="@color/bananaBrown"
+            app:layout_constraintEnd_toEndOf="@+id/viewBackground_Goals_BG"
+            app:layout_constraintStart_toStartOf="@+id/viewBackground_Goals_BG"
+            app:layout_constraintTop_toBottomOf="@id/textView_Goals_MinGoals"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <TextView
+
+            android:layout_margin="15sp"
+            android:id="@+id/textView_Goals_MaxGoals"
+            android:layout_width="250sp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/bananaBrown"
+            android:textSize="20sp"
+            android:text="Maximum Daily Hours Goal:"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@id/editText_Goals_MinGoals"
+            app:layout_constraintEnd_toEndOf="@+id/viewBackground_Goals_BG"
+            app:layout_constraintStart_toStartOf="@+id/viewBackground_Goals_BG"/>
+
+        <EditText
+            android:id="@+id/editText_Goals_MaxGoals"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="15sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/rounded_edittext"
+            android:inputType="numberDecimal"
+            android:textColor="@color/bananaBrown"
+            app:layout_constraintEnd_toEndOf="@+id/viewBackground_Goals_BG"
+            app:layout_constraintStart_toStartOf="@+id/viewBackground_Goals_BG"
+            app:layout_constraintTop_toBottomOf="@id/textView_Goals_MaxGoals"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <Button
+
+            android:id="@+id/button_Goals_SaveGoals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="Save Goals"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/viewBackground_Goals_BG"
+            app:layout_constraintStart_toStartOf="@+id/viewBackground_Goals_BG"
+            app:layout_constraintTop_toBottomOf="@id/editText_Goals_MaxGoals"
+            app:layout_constraintVertical_bias="0.11" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout_Goals_List"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewBackground_Goals_BG" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

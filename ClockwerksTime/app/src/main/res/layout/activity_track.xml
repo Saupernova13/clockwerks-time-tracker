@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/banana"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Track">
+
+        <View
+            android:id="@+id/viewBackground_Track_StartEndTimes"
+            android:layout_width="320dp"
+            android:layout_height="280dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/rounded_rectangle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_Track_Title" />
+
+        <View
+            android:id="@+id/viewBackground_Track_Details"
+            android:layout_width="320dp"
+            android:layout_height="730dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20sp"
+            android:background="@drawable/rounded_rectangle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewBackground_Timer_Border_Bottom" />
+
+        <View
+            android:id="@+id/viewBackground_Track_Details_Extender"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:background="@color/banana"
+            app:layout_constraintTop_toBottomOf="@+id/viewBackground_Track_Details" />
+
+        <View
+            android:id="@+id/viewBackground_Timer_Border_Top"
+            android:layout_width="match_parent"
+            android:layout_height="4sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10sp"
+            android:background="@color/bananaBrown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewBackground_Track_StartEndTimes" />
+
+        <View
+            android:id="@+id/viewBackground_Timer_Border_Bottom"
+            android:layout_width="match_parent"
+            android:layout_height="4sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10sp"
+            android:background="@color/bananaBrown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_Track_Time_Timer" />
+
+        <TextView
+            android:id="@+id/textView_Track_Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Track Activity"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_Track_Time_Timer"
+            android:layout_width="300sp"
+            android:layout_height="55sp"
+            android:layout_marginTop="10sp"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textColor="@color/bananaBrown"
+            android:textSize="40sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_Track_Time_TimerHeading" />
+
+        <TextView
+            android:id="@+id/textView_Track_Time_TimerHeading"
+            android:layout_width="200sp"
+            android:layout_height="30sp"
+            android:layout_marginTop="10sp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Time Spent Working:"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.222"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewBackground_Timer_Border_Top" />
+
+        <TextView
+            android:id="@+id/textView_Track_Task_Description"
+            android:layout_width="150sp"
+            android:layout_height="30sp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Description:"
+            android:textColor="@color/bananaBrown"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/viewBackground_Track_Details"
+            app:layout_constraintHorizontal_bias="0.189"
+            app:layout_constraintStart_toStartOf="@+id/viewBackground_Track_Details"
+            app:layout_constraintTop_toTopOf="@+id/viewBackground_Track_Details" />
+
+        <TextView
+            android:id="@+id/textView_Track_Task_Category"
+            android:layout_width="150sp"
+            android:layout_height="30sp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Task Category:"
+            android:textColor="@color/bananaBrown"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/viewBackground_Track_Details"
+            app:layout_constraintHorizontal_bias="0.176"
+            app:layout_constraintStart_toStartOf="@+id/viewBackground_Track_Details"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine_Track_Task_Description" />
+
+        <TextView
+            android:id="@+id/textView_Track_Task_Media"
+            android:layout_width="150sp"
+            android:layout_height="30sp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Task Media:"
+            android:textColor="@color/bananaBrown"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/viewBackground_Track_Details"
+            app:layout_constraintHorizontal_bias="0.176"
+            app:layout_constraintStart_toStartOf="@+id/viewBackground_Track_Details"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_Task_Category" />
+
+        <TextView
+            android:id="@+id/textView_Track_Time_Start"
+            android:layout_width="wrap_content"
+            android:layout_height="30sp"
+            android:layout_marginLeft="41dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Start Time:"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/viewBackground_Track_StartEndTimes"
+            app:layout_constraintTop_toBottomOf="@+id/textView_Track_Title" />
+
+        <Button
+            android:id="@+id/button_Track_Time_Start"
+            android:layout_width="130sp"
+            android:layout_height="60sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Set"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/viewBackground_Track_StartEndTimes"
+            app:layout_constraintTop_toBottomOf="@+id/textView_Track_Time_Start"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/textView_Track_Date_Start"
+            android:layout_width="wrap_content"
+            android:layout_height="30sp"
+            android:layout_marginTop="32dp"
+            android:layout_marginRight="41dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Start Date:"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/viewBackground_Track_StartEndTimes"
+            app:layout_constraintTop_toBottomOf="@+id/textView_Track_Title" />
+
+        <Button
+            android:id="@+id/button_Track_Date_Start"
+            android:layout_width="130sp"
+            android:layout_height="60sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Set"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/viewBackground_Track_StartEndTimes"
+            app:layout_constraintTop_toBottomOf="@+id/textView_Track_Date_Start"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/textView_Track_Time_End"
+            android:layout_width="100sp"
+            android:layout_height="30sp"
+            android:layout_marginLeft="41dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="End Time:"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/viewBackground_Track_StartEndTimes"
+            app:layout_constraintTop_toBottomOf="@+id/button_Track_Time_Start" />
+
+        <Button
+            android:id="@+id/button_Track_Time_End"
+            android:layout_width="130sp"
+            android:layout_height="60sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Set"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/viewBackground_Track_StartEndTimes"
+            app:layout_constraintTop_toBottomOf="@+id/textView_Track_Time_End"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/textView_Track_Date_End"
+            android:layout_width="100sp"
+            android:layout_height="30sp"
+            android:layout_marginTop="32dp"
+            android:layout_marginRight="25dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="End Date:"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/viewBackground_Track_StartEndTimes"
+            app:layout_constraintTop_toBottomOf="@+id/button_Track_Date_Start" />
+
+        <Button
+            android:id="@+id/button_Track_Date_End"
+            android:layout_width="130sp"
+            android:layout_height="60sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Set"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/viewBackground_Track_StartEndTimes"
+            app:layout_constraintTop_toBottomOf="@+id/textView_Track_Date_End"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <EditText
+            android:id="@+id/editTextTextMultiLine_Track_Task_Description"
+            android:layout_width="302dp"
+            android:layout_height="118dp"
+            android:layout_marginLeft="20sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="20sp"
+            android:background="@drawable/rounded_edittext"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Enter in a description"
+            android:inputType="textMultiLine"
+            android:textColor="@color/bananaBrown"
+            app:layout_constraintEnd_toEndOf="@+id/viewBackground_Track_Details"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintStart_toStartOf="@+id/viewBackground_Track_Details"
+            app:layout_constraintTop_toBottomOf="@+id/textView_Track_Task_Description"
+            tools:ignore="SpeakableTextPresentCheck" />
+        <Spinner
+            android:popupBackground="@drawable/spinner_background"
+            android:theme="@style/SpinnerTextStyle"
+            android:id="@+id/spinner_Task_Category"
+            android:layout_width="304dp"
+            android:layout_height="51dp"
+            android:layout_marginLeft="20sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="20sp"
+            android:background="@drawable/spinner_background"
+            android:textColor="@color/bananaBrown"
+            app:layout_constraintEnd_toEndOf="@+id/viewBackground_Track_Details"
+            app:layout_constraintStart_toStartOf="@+id/viewBackground_Track_Details"
+            app:layout_constraintTop_toBottomOf="@+id/textView_Track_Task_Category"
+            tools:ignore="SpeakableTextPresentCheck" />
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/categoryDropDownInputLayout"-->
+<!--            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="20sp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:layout_marginRight="20sp"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/viewBackground_Track_Details"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/viewBackground_Track_Details"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/textView_Track_Task_Category">-->
+
+<!--            <AutoCompleteTextView-->
+<!--                android:id="@+id/autoCompleteTextView_Task_Category"-->
+<!--                android:layout_width="304dp"-->
+<!--                android:layout_height="51dp"-->
+<!--                android:background="@drawable/rounded_edittext"-->
+<!--                android:textColor="@color/bananaBrown"-->
+<!--                tools:ignore="SpeakableTextPresentCheck" />-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+        <ImageView
+            android:id="@+id/imageView_Track_Media_1"
+            android:layout_width="300sp"
+            android:layout_height="260dp"
+            android:layout_marginLeft="20sp"
+            android:layout_marginTop="16sp"
+            android:layout_marginRight="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/viewBackground_Track_Details"
+            app:layout_constraintStart_toStartOf="@+id/viewBackground_Track_Details"
+            app:layout_constraintTop_toBottomOf="@+id/textView_Track_Task_Media"
+            app:srcCompat="@drawable/no_image_available" />
+
+        <GridLayout
+            android:id="@+id/gridLayout_Media"
+            android:layout_width="250sp"
+            android:layout_height="80sp"
+            android:layout_marginBottom="10sp"
+            android:columnCount="2"
+            android:rowCount="1"
+            app:layout_constraintEnd_toEndOf="@+id/viewBackground_Track_Details"
+            app:layout_constraintStart_toStartOf="@+id/viewBackground_Track_Details"
+            app:layout_constraintTop_toBottomOf="@+id/imageView_Track_Media_1">
+
+            <Button
+                android:id="@+id/button_Track_Media_Add"
+                android:layout_width="40sp"
+                android:layout_height="60sp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:layout_margin="10sp"
+                android:onClick="CaptureImage"
+                android:text="Add Image"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/button_Track_Media_Delete"
+                android:layout_width="40sp"
+                android:layout_height="60sp"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="10sp"
+                android:text="Remove Image"
+                android:textColor="@color/white" />
+        </GridLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

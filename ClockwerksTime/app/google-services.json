@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "126366712335",
+    "firebase_url": "https://clockwerkstime-default-rtdb.firebaseio.com",
+    "project_id": "clockwerkstime",
+    "storage_bucket": "clockwerkstime.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126366712335:android:7e845fcff121e90f88597a",
+        "android_client_info": {
+          "package_name": "com.raavi.clockwerkstime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "126366712335-6qa2b2mc8kgfge2jsm8tptrbjqod5t22.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.raavi.clockwerkstime",
+            "certificate_hash": "e0ad914d1de6c92d4a40a34d2f6c9485bcdd6236"
+          }
+        },
+        {
+          "client_id": "126366712335-19dnq1dovhohgddeat6ug84vpjadmjml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDL__Lz5vNZAgS7Dpba_-eFi5rlixNO28E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "126366712335-19dnq1dovhohgddeat6ug84vpjadmjml.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

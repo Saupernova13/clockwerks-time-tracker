@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="banana">#D3CE9B</color>
+    <color name="bananaLighter">#CDC997</color>
+    <color name="bananaBrown">#6e5a26</color>
+    <color name="bananaFragmentBG">#BDB885</color>
+    <color name="bananaAddButton">#d3ce9b</color>
+    <color name="darkModeBG">#1C1B1B</color>
+    <color name="invisible">#00FFFFFF</color>
+    <color name="lightGray">#80FFFFFF</color>
+    <color name="editTextBG">#FFFFFFFF</color>
+    <color name="hyperlink">#55A2E6</color>
+</resources>

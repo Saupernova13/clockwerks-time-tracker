@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".About"  android:background="@color/banana">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/banana"
+        app:popupTheme="@style/Theme.ClockwerksTime.PopupOverlay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/about"
+        app:titleTextColor="@color/white"/>
+
+    <View
+        android:id="@+id/viewBG_About"
+        android:layout_width="343dp"
+        android:layout_height="350dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/rounded_rectangle_brown"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_About_Info"
+        app:layout_constraintVertical_bias="0.454" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/bananaBrown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <ImageView
+        android:id="@+id/imageView_About_Logo"
+        android:layout_width="179dp"
+        android:layout_height="171dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_About_Caption"
+        app:srcCompat="@drawable/clockwerk_logo_icon" />
+
+    <TextView
+        android:id="@+id/textView_About_Caption"
+        android:layout_width="353dp"
+        android:layout_height="62dp"
+        android:layout_marginLeft="10sp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="10sp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="Keeping you on track, every time, like clockwork!"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/textView_About_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Clokwerks: Time Tracker"
+        android:textAlignment="center"
+        android:textColor="@color/bananaBrown"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_About_Logo" />
+
+    <TextView
+        android:id="@+id/textView_About_Info"
+        android:layout_width="352dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="5sp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/about_info"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_About_Title" />
+
+    <TextView
+        android:id="@+id/textView_About_BigText"
+        android:layout_width="294dp"
+        android:layout_height="322dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/About_Desc"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/viewBG_About"
+        app:layout_constraintEnd_toEndOf="@+id/viewBG_About"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="@+id/viewBG_About"
+        app:layout_constraintTop_toTopOf="@+id/viewBG_About" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
