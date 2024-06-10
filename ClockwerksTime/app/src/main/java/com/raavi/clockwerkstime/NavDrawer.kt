@@ -126,7 +126,9 @@ class NavDrawer : AppCompatActivity() {
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             val intent = when (menuItem.itemId) {
                 R.id.nav_account, R.id.nav_about, R.id.nav_track,
-                R.id.nav_categories, R.id.nav_goals, R.id.nav_alarms -> {
+                R.id.nav_categories, R.id.nav_goals
+                //    , R.id.nav_alarms
+                -> {
                     if (user == null) {
                         if (menuItem.itemId == R.id.nav_account) {
                             Intent(this@NavDrawer, Login::class.java)
@@ -148,7 +150,7 @@ class NavDrawer : AppCompatActivity() {
                             R.id.nav_track -> Intent(this@NavDrawer, Track::class.java)
                             R.id.nav_categories -> Intent(this@NavDrawer, Categories::class.java)
                             R.id.nav_goals -> Intent(this@NavDrawer, Goals::class.java)
-                            R.id.nav_alarms -> Intent(this@NavDrawer, Alarms::class.java)
+                            //R.id.nav_alarms -> Intent(this@NavDrawer, Alarms::class.java)
                             else -> null
                         }
                     }

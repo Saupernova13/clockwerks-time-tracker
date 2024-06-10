@@ -12,4 +12,17 @@
     <color name="lightGray">#80FFFFFF</color>
     <color name="editTextBG">#FFFFFFFF</color>
     <color name="hyperlink">#55A2E6</color>
+    <color name="colourPrimary">#959350</color>
+    <color name="colourPrimaryDark">#7E7C47</color>
+    <color name="colourAccent">#CCC969</color>
+    <color name="bar1">#FF7043</color>
+    <color name="bar2">#AB47BC</color>
+    <color name="bar3">#42A5F5</color>
+    <color name="bar4">#26A69A</color>
+    <color name="bar5">#66BB6A</color>
+    <color name="bar6">#FFCA28</color>
+    <color name="bar7">#FFA726</color>
+    <color name="bar8">#8D6E63</color>
+    <color name="bar9">#78909C</color>
+    <color name="transparent">#00000000</color>
 </resources>

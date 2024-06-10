@@ -20,10 +20,10 @@
             android:id="@+id/nav_goals"
             android:icon="@drawable/ic_goal"
             android:title="My Goals" />
-        <item
-            android:id="@+id/nav_alarms"
-            android:icon="@drawable/ic_alarm"
-            android:title="My Alarms" />
+<!--        <item-->
+<!--            android:id="@+id/nav_alarms"-->
+<!--            android:icon="@drawable/ic_alarm"-->
+<!--            android:title="My Alarms" />-->
         <item
             android:id="@+id/nav_about"
             android:icon="@drawable/outline_info_24"
