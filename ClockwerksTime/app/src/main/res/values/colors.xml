@@ -25,4 +25,5 @@
     <color name="bar8">#8D6E63</color>
     <color name="bar9">#78909C</color>
     <color name="transparent">#00000000</color>
+    <color name="goalProgressColor">#FFD059</color>
 </resources>

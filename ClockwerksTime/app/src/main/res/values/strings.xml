@@ -19,4 +19,5 @@
     <string name="About_Desc">Clockwerks Time Tracker is a simple and easy to use time tracking app that helps you keep track of your work hours for client projects. It is designed to be simple and easy to use, so you can focus on what you need to do. With Clockwerks, you can easily track your time and tasks, set reminders, and keep track of your progress. Whether you are a student, a professional, or just someone who wants to be more productive, Clockwerks can help you stay on track and get things done.</string>
     <string name="forgot_password"><u>Did you forget your password?</u></string>
     <string name="default_web_client_id">126366712335-6qa2b2mc8kgfge2jsm8tptrbjqod5t22.apps.googleusercontent.com</string>
+    <string name="success_message">Hooorayyy!!!! You hit your goal for today!!</string>
 </resources>
