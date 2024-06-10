@@ -1,6 +1,7 @@
 package com.raavi.clockwerkstime.ui.home
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.icu.text.SimpleDateFormat
@@ -35,6 +36,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Label
 import com.raavi.clockwerkstime.R
+import com.raavi.clockwerkstime.Track
 import com.raavi.clockwerkstime.TrackModel
 import com.raavi.clockwerkstime.databinding.FragmentHomeBinding
 import java.util.Date
@@ -328,6 +330,21 @@ class HomeFragment : Fragment() {
         cardView.addView(mediaView)
         sessionsContainer.addView(cardView)
         sessionsContainer.setPadding(20, 10, 20, 10)
+
+        cardView.setOnClickListener {
+            val intent = Intent(context, Track::class.java).apply {
+                putExtra("SESSION_ID", trackModel?.id)
+                putExtra("START_TIME", trackModel?.startTime)
+                putExtra("START_DATE", trackModel?.startDate)
+                putExtra("END_TIME", trackModel?.endTime)
+                putExtra("END_DATE", trackModel?.endDate)
+                putExtra("TIME_SPENT_WORKING", trackModel?.timeSpentWorking)
+                putExtra("TASK_DESCRIPTION", trackModel?.taskDescription)
+                putExtra("TASK_CATEGORY", trackModel?.taskCategory)
+                putExtra("TASK_MEDIA", trackModel?.taskMedia)
+            }
+            startActivity(intent)
+        }
     }
 
     private fun showDatePicker(start: Boolean) {

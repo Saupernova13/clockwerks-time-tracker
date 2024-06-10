@@ -11,9 +11,9 @@ import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock
 import android.provider.MediaStore
+import android.util.Base64
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -29,7 +29,6 @@ import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.Base64
 import java.util.Calendar
 import java.util.Locale
 
@@ -43,7 +42,6 @@ class Track : AppCompatActivity() {
     lateinit var buttonRemoveMedia: Button
     lateinit var mediaViewer: ImageView
     lateinit var realtimeTimer: TextView
-    // lateinit var acTextViewTaskCategory: AutoCompleteTextView
     lateinit var acTextViewTaskCategory: Spinner
     lateinit var editTextTaskDescription: EditText
     private var StartDate: Calendar? = null
@@ -54,31 +52,27 @@ class Track : AppCompatActivity() {
     private val currentTrack = TrackModel()
     private val handler = Handler(Looper.getMainLooper())
     private var startTime = 0L
-    //Allowa For Continuous Running Of The Timer
+    private var baseTime: Long = 0L
+
     private val runnable = object : Runnable {
         override fun run() {
-            val elapsedMillis = SystemClock.elapsedRealtime() - startTime
-            val hours = (elapsedMillis / 3600000)
-            val minutes = (elapsedMillis / 60000) % 60
-            val seconds = (elapsedMillis / 1000) % 60
+            // Calculate elapsed time and set the timer text
+            val elapsedMillis = SystemClock.elapsedRealtime() - startTime + baseTime
+            val hours = (elapsedMillis / 3600000).toInt()
+            val minutes = ((elapsedMillis % 3600000) / 60000).toInt()
+            val seconds = ((elapsedMillis % 60000) / 1000).toInt()
             val time = String.format("%02d:%02d:%02d", hours, minutes, seconds)
             realtimeTimer.text = time
             handler.postDelayed(this, 50)
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_track)
-        //Firebase Initialisation
         authorisation = FirebaseAuth.getInstance()
-        //Firebase Realtime Database Up To Users Node
         database = FirebaseDatabase.getInstance().reference.child("users")
-//        val initialHours = 0
-//        val initialMinutes = 11
-//        val initialSeconds = 33
-//        val initialTimeMillis = ((initialHours * 3600) + (initialMinutes * 60) + initialSeconds) * 1000
 
-        //More Typecasting
         buttonDateStart = findViewById(R.id.button_Track_Date_Start)
         buttonDateEnd = findViewById(R.id.button_Track_Date_End)
         buttonTimeStart = findViewById(R.id.button_Track_Time_Start)
@@ -88,61 +82,99 @@ class Track : AppCompatActivity() {
         realtimeTimer = findViewById(R.id.textView_Track_Time_Timer)
         mediaViewer = findViewById(R.id.imageView_Track_Media_1)
         editTextTaskDescription = findViewById(R.id.editTextTextMultiLine_Track_Task_Description)
-        //acTextViewTaskCategory = findViewById(R.id.autoCompleteTextView_Task_Category)
         acTextViewTaskCategory = findViewById(R.id.spinner_Task_Category)
-        populateDropdown()
-        setCurrentTimeOnButtons()
-        startTime = SystemClock.elapsedRealtime()
-        handler.postDelayed(runnable, 0)
-        //OnCLick Methods For Setting Dates And Times
-        buttonTimeEnd.setOnClickListener {
-            openTimePicker(endTimeListener)
-        }
-        buttonDateEnd.setOnClickListener {
-            openDatePicker(endDateListener)
-        }
-        buttonDateStart.setOnClickListener {
-            openDatePicker(startDateListener)
-        }
-        buttonTimeStart.setOnClickListener {
-            openTimePicker(startTimeListener)
-        }
-        buttonRemoveMedia.setOnClickListener {
-            currentTrack.taskMedia = "Empty"
-        }
-    }
-    //Attempts To Prevent User From Leaving
-    override fun onDestroy() {
-        if (currentTrack.endDate.toString().isEmpty()) {
-            showToast("Please set an end date first!")
-        } else if (currentTrack.endTime.toString().isEmpty()) {
-            showToast("Please set an end time first!")
-        } else if (currentTrack.startDate.toString().isEmpty()) {
-            showToast("Please set a start date first!")
-        } else if (currentTrack.startTime.toString().isEmpty()) {
-            showToast("Please set a start time first!")
+
+        val sessionId = intent.getStringExtra("SESSION_ID")
+        if (sessionId != null) {
+            buttonDateStart.text = intent.getStringExtra("START_DATE")
+            buttonDateEnd.text = intent.getStringExtra("END_DATE")
+            buttonTimeStart.text = intent.getStringExtra("START_TIME")
+            buttonTimeEnd.text = intent.getStringExtra("END_TIME")
+            editTextTaskDescription.setText(intent.getStringExtra("TASK_DESCRIPTION"))
+
+            val taskCategory = intent.getStringExtra("TASK_CATEGORY")
+            loadTrackCategorySpinner(taskCategory)
+
+            val taskMedia = intent.getStringExtra("TASK_MEDIA")
+            if (taskMedia != "Empty") {
+                val imageBytes = Base64.decode(taskMedia, Base64.DEFAULT)
+                val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+                mediaViewer.setImageBitmap(decodedImage)
+            }
+
+            val timeSpentWorking = intent.getStringExtra("TIME_SPENT_WORKING")
+            baseTime = parseTimeToMillis(timeSpentWorking!!)
+
+            startTime = SystemClock.elapsedRealtime()
+            handler.postDelayed(runnable, 0)
         } else {
-            handler.removeCallbacks(runnable)
-            saveToFirebase(currentTrack)
-            super.onDestroy()
+            setCurrentTimeOnButtons()
+            startTime = SystemClock.elapsedRealtime()
+            handler.postDelayed(runnable, 0)
         }
+
+        buttonTimeEnd.setOnClickListener { openTimePicker(endTimeListener) }
+        buttonDateEnd.setOnClickListener { openDatePicker(endDateListener) }
+        buttonDateStart.setOnClickListener { openDatePicker(startDateListener) }
+        buttonTimeStart.setOnClickListener { openTimePicker(startTimeListener) }
+        buttonRemoveMedia.setOnClickListener { currentTrack.taskMedia = "Empty" }
     }
-    //Methods That Opem Menus For Setting Dates And Times
+
+    private fun loadTrackCategorySpinner(selectedCategory: String?) {
+        val dropDownOptions = arrayListOf("Client Projects", "Designing", "Meetings", "Planning", "Work", "Administration", "Overtime")
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, dropDownOptions)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        acTextViewTaskCategory.adapter = adapter
+        acTextViewTaskCategory.setSelection(dropDownOptions.indexOf(selectedCategory))
+    }
+
+    override fun onDestroy() {
+        handler.removeCallbacks(runnable)
+        saveToFirebase(createTrackModelFromInput())
+        super.onDestroy()
+    }
+
+    private fun createTrackModelFromInput(): TrackModel {
+        return TrackModel(
+            id = intent.getStringExtra("SESSION_ID") ?: LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy:MM:dd:HH:mm:ss")),
+            startDate = buttonDateStart.text.toString(),
+            startTime = buttonTimeStart.text.toString(),
+            endDate = buttonDateEnd.text.toString(),
+            endTime = buttonTimeEnd.text.toString(),
+            timeSpentWorking = realtimeTimer.text.toString(),
+            taskDescription = editTextTaskDescription.text.toString(),
+            taskCategory = acTextViewTaskCategory.selectedItem?.toString(),
+            taskMedia = getCurrentImageBase64()
+        )
+    }
+
+    private fun parseTimeToMillis(time: String): Long {
+        val parts = time.split(":").map { it.toInt() }
+        return (parts[0] * 3600 + parts[1] * 60 + parts[2]) * 1000L
+    }
+
+    private fun getCurrentImageBase64(): String {
+        val bitmap = (mediaViewer.drawable as? BitmapDrawable)?.bitmap
+        if (bitmap != null) {
+            val outputStream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+            return Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT)
+        }
+        return "Empty"
+    }
+
     private fun openDatePicker(dateSetListener: DatePickerDialog.OnDateSetListener) {
         val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-        val datePickerDialog = DatePickerDialog(this, dateSetListener, year, month, day)
+        val datePickerDialog = DatePickerDialog(this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
         datePickerDialog.show()
     }
+
     private fun openTimePicker(timeSetListener: TimePickerDialog.OnTimeSetListener) {
         val calendar = Calendar.getInstance()
-        val hour = calendar.get(Calendar.HOUR_OF_DAY)
-        val minute = calendar.get(Calendar.MINUTE)
-        val timePickerDialog = TimePickerDialog(this, timeSetListener, hour, minute, true)
+        val timePickerDialog = TimePickerDialog(this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true)
         timePickerDialog.show()
     }
+
     private val startDateListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
         val selectedCalendar = Calendar.getInstance()
         selectedCalendar.set(year, month, day)
@@ -151,6 +183,7 @@ class Track : AppCompatActivity() {
         buttonDateStart.text = dateFormat.format(selectedCalendar.time)
         currentTrack.startDate = buttonDateStart.text.toString()
     }
+
     private val startTimeListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
         val selectedCalendar = Calendar.getInstance()
         StartTime ?: run { StartTime = selectedCalendar }
@@ -160,6 +193,7 @@ class Track : AppCompatActivity() {
         buttonTimeStart.text = timeFormat.format(StartTime?.time)
         currentTrack.startTime = buttonTimeStart.text.toString()
     }
+
     private val endDateListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
         val selectedCalendar = Calendar.getInstance()
         selectedCalendar.set(year, month, day)
@@ -168,6 +202,7 @@ class Track : AppCompatActivity() {
         buttonDateEnd.text = dateFormat.format(selectedCalendar.time)
         currentTrack.endDate = buttonDateEnd.text.toString()
     }
+
     private val endTimeListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
         val selectedCalendar = Calendar.getInstance()
         EndTime ?: run { EndTime = selectedCalendar }
@@ -177,7 +212,7 @@ class Track : AppCompatActivity() {
         buttonTimeEnd.text = timeFormat.format(EndTime?.time)
         currentTrack.endTime = buttonTimeEnd.text.toString()
     }
-    //Method To Send Dates To Text On Buttons
+
     private fun setCurrentTimeOnButtons() {
         val currentTime = LocalDateTime.now()
         val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
@@ -187,63 +222,68 @@ class Track : AppCompatActivity() {
         val currentDateFormatted = currentTime.format(dayFormatter)
         buttonDateStart.text = currentDateFormatted.toString()
     }
-    //Saves Data Of Current Tracked Session To Firebase
+
+    // Save Data of Current Tracked Session to Firebase
     fun saveToFirebase(currentTrack: TrackModel) {
         val currentUser = authorisation.currentUser?.uid
-        //Current Time Is Unique To Each Session, Per User. Makes a good Uniqe Identifier
-        val currentTimeFormatted =
-            LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy:MM:dd:HH:mm:ss"))
-        currentTrack.id = currentTimeFormatted.toString()
+        val key = currentTrack.id ?: return
+
         val startTimeFormatter = SimpleDateFormat("HH:mm", Locale.getDefault())
+        val startDateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val endTimeFormatter = SimpleDateFormat("HH:mm", Locale.getDefault())
+        val endDateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+
         val startTimeCalendar = Calendar.getInstance().apply {
             time = startTimeFormatter.parse(buttonTimeStart.text.toString())
         }
-        val startDateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         val startDateCalendar = Calendar.getInstance().apply {
             time = startDateFormatter.parse(buttonDateStart.text.toString())
         }
-        //Autocalculation Of EndDate
+
+        val endTimeCalendar = Calendar.getInstance().apply {
+            time = endTimeFormatter.parse(buttonTimeEnd.text.toString())
+        }
+        val endDateCalendar = Calendar.getInstance().apply {
+            time = endDateFormatter.parse(buttonDateEnd.text.toString())
+        }
+
         val timeSpentWorkingParts = realtimeTimer.text.toString().split(":")
         val hoursWorked = timeSpentWorkingParts[0].toInt()
         val minutesWorked = timeSpentWorkingParts[1].toInt()
         val secondsWorked = timeSpentWorkingParts[2].toInt()
+
         startTimeCalendar.add(Calendar.HOUR_OF_DAY, hoursWorked)
         startTimeCalendar.add(Calendar.MINUTE, minutesWorked)
         startTimeCalendar.add(Calendar.SECOND, secondsWorked)
-        val endTimeFormatter = SimpleDateFormat("HH:mm", Locale.getDefault())
-        val endTimeString = endTimeFormatter.format(startTimeCalendar.time)
-        val endDateCalendar = startDateCalendar.clone() as Calendar
+
         endDateCalendar.add(Calendar.HOUR_OF_DAY, hoursWorked)
         endDateCalendar.add(Calendar.MINUTE, minutesWorked)
         endDateCalendar.add(Calendar.SECOND, secondsWorked)
-        val endDateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+
+        val endTimeString = endTimeFormatter.format(startTimeCalendar.time)
         val endDateString = endDateFormatter.format(endDateCalendar.time)
-        //Assignment Of Anything That Hasn't Been Assigned
-        currentTrack.startTime = buttonTimeStart.text.toString()
-        currentTrack.startDate = buttonDateStart.text.toString()
-        currentTrack.endTime = endTimeString
-        currentTrack.endDate = endDateString
-        currentTrack.timeSpentWorking = realtimeTimer.text.toString()
-        currentTrack.taskCategory = acTextViewTaskCategory.selectedItem.toString()
-        currentTrack.taskDescription = editTextTaskDescription.text.toString()
-        if (currentTrack.taskMedia == null) {
-            currentTrack.taskMedia = "Empty"
+
+        currentTrack.apply {
+            startTime = buttonTimeStart.text.toString()
+            startDate = buttonDateStart.text.toString()
+            endTime = endTimeString
+            endDate = endDateString
+            timeSpentWorking = realtimeTimer.text.toString()
+            taskCategory = acTextViewTaskCategory.selectedItem.toString()
+            taskDescription = editTextTaskDescription.text.toString()
+            if (taskMedia == null) taskMedia = "Empty"
         }
-        //Push To Firebase
-        val key = database.child(currentUser.toString()).child("trackedSessions")
-            .child(currentTrack.id.toString()).push().key
-        if (key != null) {
-            database.child(currentUser.toString()).child("trackedSessions")
-                .child(currentTrack.id.toString()).setValue(currentTrack)
-                .addOnSuccessListener {
-                    showToast("Successfully saved!")
-                }
-                .addOnFailureListener() {
-                    showToast("Failed to save data! Please check your internet connection.")
-                }
-        }
+
+        database.child(currentUser.toString()).child("trackedSessions").child(key).setValue(currentTrack)
+            .addOnSuccessListener {
+                showToast("Successfully saved!")
+            }
+            .addOnFailureListener {
+                showToast("Failed to save data! Please check your internet connection.")
+            }
     }
-    //Captures Image From Camera Or Allows Upload From Gallery
+
+    // Captures Image From Camera Or Allows Upload From Gallery
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
@@ -274,19 +314,20 @@ class Track : AppCompatActivity() {
             }
         }
     }
-    //Converts Snapped Image To Base64
+
     private fun handleImageResult(image: Bitmap) {
         val outputStream = ByteArrayOutputStream()
         image.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
-        val base64Image = Base64.getEncoder().encodeToString(outputStream.toByteArray())
+        val base64Image = Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT)
         currentTrack.taskMedia = base64Image
         mediaViewer.setImageBitmap(image)
     }
+
     companion object {
         private const val CAMERA_REQUEST_CODE = 100
         private const val GALLERY_REQUEST_CODE = 101
     }
-    //Opens Menu To Select Camera Or Gallery (Or Quit)
+
     fun CaptureImage(view: View) {
         val options = arrayOf("Take Photo", "Choose from Gallery", "Cancel")
         val builder = AlertDialog.Builder(this)
@@ -295,66 +336,28 @@ class Track : AppCompatActivity() {
             when (which) {
                 0 -> openCamera()
                 1 -> openGallery()
-                2 -> { /* Cancel, do nothing */
-                }
+                2 -> { /* Cancel, do nothing */ }
             }
         }
         builder.show()
     }
-    //Opens Camera
+
     private fun openCamera() {
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
     }
-    //Opens Gallery
+
     private fun openGallery() {
         val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE)
     }
-    //    private fun saveDropdown(inputString: String) {
-//        val user = FirebaseAuth.getInstance().currentUser
-//        val db = FirebaseDatabase.getInstance().getReference("users")
-//        val currentUser = user?.uid
-//        val key = database.child(currentUser.toString()).child("userDropDownOptions").push().key
-//        if (key != null) {
-//            database.child(currentUser.toString()).child("userDropDownOptions").setValue(inputString)
-//                .addOnSuccessListener {
-//                    showToast("Successfully saved!")
-//                }
-//                .addOnFailureListener() {
-//                    showToast("Failed to save data! Please check your internet connection.")
-//                }
-//        }
-//    }
 
-    //Populates Dropdown Menu With Default And User Generated Categories
     private fun populateDropdown() {
-        val dropDownOptions = ArrayList<String>()
-        if (!dropDownOptions.contains("Client Projects")) dropDownOptions.add("Client Projects")
-        if (!dropDownOptions.contains("Designing")) dropDownOptions.add("Designing")
-        if (!dropDownOptions.contains("Meetings")) dropDownOptions.add("Meetings")
-        if (!dropDownOptions.contains("Planning")) dropDownOptions.add("Planning")
-        if (!dropDownOptions.contains("Work")) dropDownOptions.add("Work")
-        if (!dropDownOptions.contains("Administration")) dropDownOptions.add("Administration")
-        if (!dropDownOptions.contains("Overtime")) dropDownOptions.add("Overtime")
-//        val user = FirebaseAuth.getInstance().currentUser
-//        database.child(user?.uid.toString()).child("userDropDownOptions").get().addOnSuccessListener { dataSnapshot ->
-//            if (dataSnapshot.exists()) {
-//                val dropDownItem = dataSnapshot.getValue(String::class.java)
-//                if (dropDownItem != null) {
-//                    if (!dropDownOptions.contains(dropDownItem)) {
-//                        dropDownOptions.add(dropDownItem)
-//                    }
-//                }
-//            }
-        val adapter =
-            ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, dropDownOptions)
-        acTextViewTaskCategory.setAdapter(adapter)
-//        }.addOnFailureListener {
-//            showToast("Error fetching user data: ${it.message}")
-//        }
+        val dropDownOptions = arrayListOf("Client Projects", "Designing", "Meetings", "Planning", "Work", "Administration", "Overtime")
+        val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, dropDownOptions)
+        acTextViewTaskCategory.adapter = adapter
     }
-    //Shows Notification
+
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }

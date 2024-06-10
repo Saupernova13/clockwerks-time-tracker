@@ -86,6 +86,7 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             android:visibility="gone"
+            android:layout_marginTop="10sp"
             android:text="Hours Worked Over Time"
             android:layout_column="0"
             android:layout_row="3" />
