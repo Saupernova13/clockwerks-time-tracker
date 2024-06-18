@@ -1,11 +1,9 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/Pc5rbg6t)
+# clockwerks-time-tracker
+ An app for professionals to track the amount of time they spend on client projects.
 
 ---
 
 # Clockworks - Time Tracker
-
-## ST10024620  
-## POE Part 3 - Final Part
 
 ### Application Version: 1.1  
 ### Developed by: Sauraav Jayrajh
@@ -165,8 +163,17 @@ To select an option, simply click on it. Follow the on-screen instructions to co
 
 ---
 
+## Demos:
+
+[Demo of Working Application](https://github.com/Saupernova13/clockwerks-time-tracker/blob/main/docs/SAURAAV_CLOCKWERKS_DEMO_1.mp4)
+
+[Demo of  Working Application - Updated](https://github.com/Saupernova13/clockwerks-time-tracker/blob/main/docs/SAURAAV_CLOCKWERKS_DEMO_2_(UPDATED).mp4)
+
+---
+
 ## License:
 
 This project is licensed under the MIT License.
 
 ---
+
