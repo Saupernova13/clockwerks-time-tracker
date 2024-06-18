@@ -165,9 +165,9 @@ To select an option, simply click on it. Follow the on-screen instructions to co
 
 ## Demos:
 
-[Demo of Working Application](https://github.com/Saupernova13/clockwerks-time-tracker/blob/main/docs/SAURAAV_CLOCKWERKS_DEMO_1.mp4)
+[Demo of Working Application](https://github.com/Saupernova13/clockwerks-time-tracker/blob/main/Docs/SAURAAV_CLOCKWERKS_DEMO_1.mp4)
 
-[Demo of  Working Application - Updated](https://github.com/Saupernova13/clockwerks-time-tracker/blob/main/docs/SAURAAV_CLOCKWERKS_DEMO_2_(UPDATED).mp4)
+[Demo of  Working Application - Updated](https://github.com/Saupernova13/clockwerks-time-tracker/blob/main/Docs/SAURAAV_CLOCKWERKS_DEMO_2_(UPDATED).mp4)
 
 ---
 
