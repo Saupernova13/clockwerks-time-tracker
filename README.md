@@ -5,6 +5,10 @@
 
 # Clockworks - Time Tracker
 
+<p align="center">
+  <img src="Docs/CLOCKWERKS_LOGO.png" height=350 alt="monokuma_honeypot"/>
+</p>
+
 ### Application Version: 1.1  
 ### Developed by: Sauraav Jayrajh
 
